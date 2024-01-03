@@ -72,4 +72,20 @@ app.patch("/api/coc/business/:id", (req, res) => {
     .catch((error) => res.status(500).json("Server Error updating entry in business"))
 })
 
+app.put("/api/coc/owner/:id", (req, res) => {
+    const id = req.params.id
+    const [ body ] = req.body
+    pool.query('UPDATE owner SET name = $1, age = $2 WHERE id = $3', [ body.name, body.age, id])
+    .then((result) => res.status(200).json("Sucessfully updated entry in owners table"))
+    .catch((error) => res.status(500).json("Server failed to update entry in owners table"))
+})
+
+app.put("/api/coc/business/:id", (req, res) => {
+    const id = req.params.id
+    const [ body ] = req.body
+    pool.query('UPDATE business SET name = $1, num_employees = $2, owner_id = $3 WHERE id = $4', [ body.name, body.numEmployees, body.ownerId, id])
+    .then((result) => res.status(200).json("Sucessfully updated entry in business table"))
+    .catch((error) => res.status(500).json("Server failed to update entry in business table"))
+})
+
 app.listen(expressPort, () => console.log(`Listening on port ${expressPort}`))
