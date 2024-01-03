@@ -17,13 +17,13 @@ app.use(express.static('public'))
 
 app.get("/api/coc/owner", (req, res) => {
     pool.query('SELECT * FROM owner')
-    .then((result) => res.status(200).json("Sucessfully Retrived Entries"))
+    .then((result) => res.status(200).json(result.rows))
     .catch((error) => res.status(500).json("Error Retriving Entries"))
 })
 
 app.get("/api/coc/business", (req, res) => {
     pool.query('SELECT * FROM business')
-    .then((result) => res.status(200).json("Sucessfully Retrived Entries"))
+    .then((result) => res.status(200).json(result.rows))
     .catch((error) => res.status(500).json("Error Retriving Entries"))
 })
 
