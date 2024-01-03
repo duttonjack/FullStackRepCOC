@@ -43,17 +43,19 @@ app.post("/api/coc/owner", (req, res) => {
 })
 
 app.delete("/api/coc/business/:id", (req, res) => {
-    const id = req.params.id
+    const id = Number(req.params.id)
+    console.log(id)
     pool.query('DELETE FROM business WHERE id = $1', [ id ])
-    .then((result) => res.status(200).json('Entry deleted from business'))
-    .catch((error) => res.status(500).send('Error deleting entry from business'))
+    .then((result) => res.status(200).json("Deleted entry"))
+    .catch((error) => res.status(500).json('Error deleting entry from business'))
 })
 
 app.delete("/api/coc/owner/:id", (req, res) => {
-    const id = req.params.id
+    const id = Number(req.params.id)
+    console.log(typeof id, id)
     pool.query('DELETE FROM owner WHERE id = $1', [ id ])
-    .then((result) => res.status(200).json('Entry deleted from owner'))
-    .catch((error) => res.status(500).send('Error deleting entry from owner'))
+    .then((result) => res.status(200).json('Deleted entry'))
+    .catch((error) => res.status(500).json('Error deleting entry from business'))
 })
 
 app.patch("/api/coc/owner/:id", (req, res) => {

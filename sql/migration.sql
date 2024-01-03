@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS owner;
 DROP TABLE IF EXISTS business;
+DROP TABLE IF EXISTS owner;
 
 CREATE TABLE owner (
     id serial PRIMARY KEY NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE business (
     id serial PRIMARY KEY NOT NULL,
     name TEXT NOT NULL,
     num_employees INTEGER NOT NULL,
-    owner_id INTEGER REFERENCES owner(id)
+    owner_id INTEGER REFERENCES owner(id) ON DELETE CASCADE
 );
 
 
