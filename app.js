@@ -28,16 +28,17 @@ app.get("/api/coc/business", (req, res) => {
 })
 
 app.post("/api/coc/business", (req, res) => {
-    const [ entry ] = req.body
-    console.log("in server Post: ", entry.name, entry.numEmployees, entry.ownerId)
-    pool.query('INSERT INTO business (name, num_employees, owner_id) VALUES ($1, $2, $3)', [ entry.name, entry.numEmployees, entry.ownerId ])
+    const  { name, numEmployees, ownerId }  = req.body
+    console.log(name, numEmployees, ownerId)
+    pool.query('INSERT INTO business (name, num_employees, owner_id) VALUES ($1, $2, $3)', [ name, numEmployees, ownerId ])
     .then((result) => res.status(200).json("Sucessfully Added Entry to business"))
     .catch((error) => res.status(500).json("Server Error adding to business DB"))
 })
 
 app.post("/api/coc/owner", (req, res) => {
-    const [ entry ] = req.body
-    pool.query('INSERT INTO owner (name, age) VALUES ($1, $2)', [ entry.name, entry.age ])
+    const  { name, age }  = req.body
+    console.log('name: ', typeof name, name,  'age: ', typeof age, age)
+    pool.query('INSERT INTO owner (name, age) VALUES ($1, $2)', [ name, age ])
     .then((result) => res.status(200).json("Sucessfully Added Entry to owner"))
     .catch((error) => res.status(500).json("Server Error adding to owner DB"))
 })

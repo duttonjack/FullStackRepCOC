@@ -64,4 +64,59 @@ function deleteBusiness(id){
     .then((data) => console.log('Business Deleted', data))
     .catch((error) => console.error('Client Error deleting entry: ', error))
 }
-deleteBusiness(3)
+
+// deleteBusiness(3)
+
+function createOwner(ownerName, ownerAge) {
+    fetch('/api/coc/owner', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'name': ownerName,
+            'age': ownerAge
+        })
+    })
+    .then((response) => {
+        if (!response.ok){
+            throw new Error (`HTTP Error status: ${response.status}`)
+        }
+        return response.json()
+    })
+    .then((data) => {
+        console.log('Data: ', data)
+    })
+    .catch((error) => {
+        console.error('Fetch Error: ', error)
+    })
+}
+
+// createOwner('Jack', 23)
+
+function createBusiness(name, numEmployees, ownerId){
+    fetch('/api/coc/business', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'name': name,
+            'numEmployees': numEmployees,
+            'ownerId': ownerId
+        })
+    })
+    .then((response) => {
+        if (!response.ok){
+            return response.json()
+        }
+    })   
+    .then((data) => console.log('Success, data: ', data))
+    .catch((error) => console.error(error))
+}
+
+// createBusiness('Albertsons', 153, 6)
+
+
+
+
