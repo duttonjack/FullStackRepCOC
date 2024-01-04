@@ -162,7 +162,52 @@ function putOwner(name, age, id){
     .catch((error) => console.error(error))
 }
 
+// putOwner('Alicia', 31, 1)
 
-putOwner('Alicia', 31, 1)
+function patchOwner(id, data){
+    const { name, age } = data
+    fetch(`/api/coc/owner/${id}`, { 
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            'name': name,
+            'age': age
+        })
+    })
+    .then((response) => {
+        if (!response.ok){
+            throw new Error(`HTTP Error status: ${http.status}`)
+        }
+    })
+    .then((data) => console.log('PATCH OWNER SUCCESSFUL, data: '))
+    .catch((error) => console.error(error))
+}
 
+// patchOwner(6, { age: '34'})
 
+function patchBusiness(id, data){
+    const { name, numEmployees, ownerId } = data
+    fetch(`/api/coc/business/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'name': name,
+            'numEmployees': numEmployees,
+            'ownerId': ownerId
+        })
+    })
+    .then((response) => {
+        if (!response.ok){
+            throw new Error(`HTTP Error status: ${response.status}`)
+        }
+        return response.json()
+    })
+    .then((data) => console.log('Successfully PATCHED business'))
+    .catch((error) => console.error(error))
+}
+
+patchBusiness(10, {name: 'Worst Widgets'})
