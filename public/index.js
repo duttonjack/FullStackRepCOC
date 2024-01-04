@@ -117,6 +117,52 @@ function createBusiness(name, numEmployees, ownerId){
 
 // createBusiness('Albertsons', 153, 6)
 
+function putBusiness(name, numEmployees, ownerId, id){
+    fetch(`/api/coc/business/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'name': name,
+            'numEmployees': numEmployees,
+            'ownerId': ownerId
+        })
+    })
+    .then((response) => {
+        if (!response.ok){
+            throw new Error(`HTTP Status Error: ${response.status}`)
+        }
+        return response.json()
+    })
+    .then((data) => console.log('Successfully PUT business: ', data))
+    .catch((error) => console.error(error))
+}
 
+// putBusiness('ABCD Co', 33, 6, 1)
+
+function putOwner(name, age, id){
+    fetch(`/api/coc/owner/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'name': name,
+            'age': age
+        })  
+    })
+    .then((response) => {
+        if (!response.ok){
+            throw new Error(`HTTP status error: ${response.status}`)
+        }
+        return response.json()
+    })
+    .then((data) => console.log('Successful PUT', data))
+    .catch((error) => console.error(error))
+}
+
+
+putOwner('Alicia', 31, 1)
 
 
